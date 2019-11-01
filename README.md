@@ -27,4 +27,5 @@ npm start
 open ios/mobileVOD.xcworkspace
 ```
 
-### Run on simulator via Xcode.  
+### Run on simulator iPhone/iPad via Xcode (iOS 13).  
+

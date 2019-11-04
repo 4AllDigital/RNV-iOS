@@ -6,8 +6,8 @@
  * @flow
  */
 
-import React, {Fragment, Component, createRef} from 'react';
-import {SafeAreaView, StyleSheet, Dimensions} from 'react-native';
+import React, {Component, createRef} from 'react';
+import {StyleSheet, Dimensions} from 'react-native';
 import Video from 'react-native-video';
 
 const {width} = Dimensions.get('window');
@@ -35,19 +35,18 @@ class App extends Component {
   };
 
   toggleFullScreen = () => {
-    const vp = this.videoPlayer.current;
     const {isFullscreen} = this.state;
-    if (vp && !isFullscreen) {
+    if (this.videoPlayer.current && !isFullscreen) {
       this.setState({isFullscreen: true}, () => {
         console.log('Should present full screen.');
-        vp.presentFullscreenPlayer();
+        this.videoPlayer.current.presentFullscreenPlayer();
       });
     }
 
-    if (vp && isFullscreen) {
+    if (this.videoPlayer.current && isFullscreen) {
       this.setState({isFullscreen: false}, () => {
         console.log('Should dismiss full screen.');
-        vp.dismissFullscreenPlayer();
+        this.videoPlayer.current.dismissFullscreenPlayer();
       });
     }
   };
@@ -72,21 +71,19 @@ class App extends Component {
     const videoMP4Local = require('./assets/oceans.mp4');
 
     return (
-      <Fragment>
-        <SafeAreaView>
-          <Video
-            // Toggle controls value for varying issues.
-            controls={false}
-            source={videoMP4Remote}
-            ref={this.videoPlayer}
-            onBuffer={this.onBuffer}
-            onError={this.onError}
-            style={styles.video}
-            paused={false}
-            repeat={true}
-          />
-        </SafeAreaView>
-      </Fragment>
+      <>
+        <Video
+          // Toggle controls (true/false) value for varying issues.
+          controls={false}
+          source={videoPlaylist}
+          ref={this.videoPlayer}
+          onBuffer={this.onBuffer}
+          onError={this.onError}
+          style={styles.video}
+          paused={false}
+          repeat={true}
+        />
+      </>
     );
   }
 }
